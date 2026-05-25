@@ -162,10 +162,10 @@
                         </p>
                     </div>
 
-                    <!-- Domain Link Configuration -->
+                    <!-- Domain Link Configuration (ล๊อกโดเมนจริงของคุณให้ปลอดภัยที่สุด) -->
                     <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-xl space-y-1">
                         <p class="text-[10px] font-bold text-emerald-800">🔗 ที่อยู่เว็บหลักบน GitHub ของคุณ:</p>
-                        <input type="text" id="custom-domain" value="https://tipawan2515.github.io/freshexpress-catalog/" placeholder="https://tipawan2515.github.io/freshexpress-catalog/" oninput="renderPostPreviewAndLink()" class="w-full p-2 border border-slate-200 rounded-lg text-xs bg-white font-semibold text-emerald-800 focus:ring-1 focus:ring-emerald-500">
+                        <input type="text" id="custom-domain" value="https://tipawan2515.github.io/freshexpress-catalog/" class="w-full p-2 border border-slate-200 rounded-lg text-xs bg-white font-semibold text-emerald-800 focus:ring-1 focus:ring-emerald-500">
                     </div>
 
                     <!-- Simulated Chat Bubble Box -->
@@ -373,7 +373,6 @@
                             }
                         }
                     });
-                    // ล็อกมุมมองลูกค้าทันทีเมื่อมีรหัสแชร์ราคามา
                     switchView('customer');
                     showNotification("🚀 ราคาสินค้าอัปเดตตรงกับหลังบ้านเรียบร้อย!");
                 } catch (e) {
@@ -399,7 +398,6 @@
                     switchView('customer');
                 }
             } else {
-                // โหลดจาก LocalStorage สำหรับใช้จำหน่วยความจำหลังบ้าน
                 const stored = localStorage.getItem('freshexpress_v4_state');
                 if (stored) {
                     try {
@@ -410,12 +408,8 @@
                 }
             }
 
-            // ตั้งค่าที่อยู่ GitHub Pages อัตโนมัติ
-            let currentUrl = window.location.origin + window.location.pathname;
-            if (currentUrl.includes('null') || currentUrl.includes('file://') || currentUrl.includes('sandbox') || currentUrl.includes('localhost') || currentUrl.includes('127.0.0.1')) {
-                currentUrl = "https://tipawan2515.github.io/freshexpress-catalog/";
-            }
-            document.getElementById('custom-domain').value = currentUrl;
+            // ตั้งค่าที่อยู่ร้านจริงของคุณตลอดกาล ป้องกันปัญหาคัดลอกลิงก์ Sandbox
+            document.getElementById('custom-domain').value = "https://tipawan2515.github.io/freshexpress-catalog/";
 
             renderAll();
         };
@@ -638,7 +632,7 @@
                         </select>
                     </td>
                     <td class="py-2.5 px-1 text-right">
-                        <button onclick="deleteProduct('${p.id}')" class="text-rose-500 hover:underline font-bold">ลบ</button>
+                        <button onclick="deleteProduct('${p.id}')" class="text-rose-500 hover:underline">ลบ</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -682,9 +676,9 @@
         /* ==================== SHAREABLE LINK GENERATOR ==================== */
         
         function generateShareableLink() {
-            const baseDomain = document.getElementById('custom-domain').value || window.location.href.split('#')[0];
+            const baseDomain = "https://tipawan2515.github.io/freshexpress-catalog/";
             
-            // เปรียบเทียบโครงสร้างเพื่อสร้างลิงก์สั้นพิเศษป้องกันไลน์ตัดรหัส
+            // ตรวจเช็คว่ามีสินค้าแปลกปลอมเพิ่มเข้ามาจากค่าตั้งต้นหรือไม่
             const defaultObj = JSON.parse(originalStateJson);
             const isMatchingStructure = state.products.length === defaultObj.products.length && 
                                         state.products.every((p, i) => p.id === defaultObj.products[i].id);
