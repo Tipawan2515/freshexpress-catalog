@@ -219,7 +219,7 @@
             </div>
 
             <!-- Floating Sticky Customer Order Bar (เมื่อเลือกสินค้าใส่ตะกร้า) -->
-            <div id="customer-cart-footer" class="hidden absolute bottom-0 inset-x-0 bg-white border-t border-slate-100 p-4 flex justify-between items-center shadow-lg rounded-t-2xl z-35">
+            <div id="customer-cart-footer" class="hidden absolute bottom-0 inset-x-0 bg-white border-t border-slate-100 p-4 flex justify-between items-center shadow-lg rounded-t-2xl z-35 flex-shrink-0">
                 <div class="text-left">
                     <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">ตะกร้าสั่งซื้อวัตถุดิบของคุณ</p>
                     <p class="text-xs text-slate-700 font-bold"><span id="cart-qty-count" class="text-emerald-600 font-extrabold">0</span> รายการที่สนใจ</p>
@@ -276,7 +276,7 @@
                 </div>
 
                 <div class="bg-amber-50 border border-amber-100 p-3 rounded-xl text-[10px] text-amber-800 leading-relaxed">
-                    💡 ระบบจะช่วยเขียนออเดอร์ให้โดยอัตโนมัติ เมื่อคุณกดส่ง ออเดอร์จะถูกคัดลอกลงในมือถือ และนำทางคุณไปที่แชท LINE เพื่อกดวาง (Paste) สั่งซื้อทันทีครับ!
+                    💡 ระบบจะช่วยเขียนออเดอร์ให้โดยอัตโนมัติ เมื่อคุณกดส่ง ออเดอร์จะถูกคัดลอกลงในมือถือ และนำทางคุณไปที่แชท LINE @337yuvjn เพื่อส่งใบสั่งซื้อได้โดยตรงทันทีครับ!
                 </div>
 
                 <div class="flex gap-2">
@@ -379,7 +379,6 @@
             // ตรวจหาว่าลิงก์ถูกเปิดแบบแอดมินหลังบ้านหรือไม่
             const isMerchantAccess = hash.includes('admin') || search.includes('admin');
 
-            // 1. ตรวจสอบสิทธิ์และซ่อน/แสดง แผงสวิตซ์หลังบ้านทันที
             const switcherContainer = document.getElementById('view-switcher-container');
             if (isMerchantAccess) {
                 switcherContainer.classList.remove('hidden');
@@ -408,7 +407,7 @@
                             }
                         }
                     });
-                    showNotification("🚀 ราคาสินค้าอัปเดตตรงตามไลน์แล้ว!");
+                    showNotification("🚀 ราคาสินค้าอัปเดตตรงตามที่ตั้งค่าแล้ว!");
                 } catch (e) {
                     console.error("Failed to parse super-short price hash", e);
                 }
@@ -450,7 +449,7 @@
             localStorage.setItem('freshexpress_v4_state', JSON.stringify(state));
         }
 
-        // Toggle admin panel vs customer view
+        // Toggle views
         function switchView(mode) {
             const viewMerchant = document.getElementById('view-merchant');
             const viewCustomer = document.getElementById('view-customer');
@@ -710,7 +709,6 @@
         function generateShareableLink() {
             const baseDomain = "https://tipawan2515.github.io/freshexpress-catalog/";
             
-            // ตรวจเช็คเพื่อย่อรหัสลงลิงก์จิ๋ว ป้องกัน LINE ตัดรหัส
             const defaultObj = JSON.parse(originalStateJson);
             const isMatchingStructure = state.products.length === defaultObj.products.length && 
                                         state.products.every((p, i) => p.id === defaultObj.products[i].id);
@@ -751,6 +749,7 @@
             postText += `━━━━━━━━━━━━━━━━━━━━━━\n`;
             postText += `👇 แตะจิ้มดูราคาทุกหมวดหมู่แบบมือถือและสั่งสินค้าใส่ตะกร้าตรงนี้เลย!\n`;
             postText += `🔗 แคตตาล็อกออนไลน์: ${shareableLink}\n\n`;
+            postText += `💚 สั่งซื้อตรงกับแอดมินทาง LINE: https://line.me/R/ti/p/@337yuvjn\n`;
             postText += `🚚 คลังมหาชัย ส่งด่วนทั่วไทย หิ้วสดส่งไวถึงหน้าบ้าน`;
 
             document.getElementById('line-post-output-preview').innerText = postText;
@@ -962,7 +961,7 @@
             summary += `💰 ยอดรวมทั้งสิ้น: ฿${totalCost.toLocaleString('th-TH')} บาท\n`;
             summary += `📅 ส่งออเดอร์: ${new Date().toLocaleDateString('th-TH', { hour: '2-digit', minute: '2-digit' })}\n`;
             summary += `━━━━━━━━━━━━━━━━━━━━━━\n`;
-            summary += `🚚 โปรดก๊อปข้อความนี้แล้วกดวาง (Paste) สั่งซื้อในกลุ่มไลน์ได้เลยครับ!`;
+            summary += `🚚 โปรดก๊อปข้อความนี้แล้วกดวาง (Paste) ส่งใบสั่งซื้อในช่องแชทได้เลยครับ!`;
 
             const textarea = document.createElement('textarea');
             textarea.value = summary;
@@ -971,10 +970,10 @@
             document.execCommand('copy');
             document.body.removeChild(textarea);
 
-            showNotification("📋 คัดลอกใบสั่งซื้อเรียบร้อย! กำลังนำคุณไปยัง LINE...");
+            showNotification("📋 คัดลอกใบสั่งซื้อเรียบร้อย! กำลังนำคุณไปยังแชท LINE OA...");
 
             setTimeout(() => {
-                window.open("https://line.me/ti/g2/JNwLyAL_j_Ds9YtTO49G14C0wZZltsm4zWTwDg", "_blank");
+                window.open("https://line.me/R/ti/p/@337yuvjn", "_blank");
             }, 1500);
         }
 
