@@ -236,7 +236,7 @@
     <!-- POPUP MODALS -->
     <!-- Create Custom Category Modal -->
     <div id="modal-category" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center z-50 hidden p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-slate-100 space-y-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-slate-150 space-y-4">
             <h3 class="text-sm font-bold text-slate-900">📁 เพิ่มหมวดหมู่สินค้าใหม่</h3>
             <div class="space-y-3">
                 <div>
@@ -257,7 +257,7 @@
 
     <!-- Interactive Shopping Cart Details Modal for Customers -->
     <div id="modal-cart-details" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center z-50 hidden p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4 flex flex-col max-h-[85vh]">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-150 space-y-4 flex flex-col max-h-[85vh]">
             <div class="flex justify-between items-center border-b border-slate-150 pb-3 flex-shrink-0">
                 <h3 class="text-sm font-extrabold text-slate-900">🛒 รายการที่คุณเลือกไว้ทั้งหมด</h3>
                 <button onclick="closeCartDetailsModal()" class="text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
@@ -749,7 +749,7 @@
             postText += `━━━━━━━━━━━━━━━━━━━━━━\n`;
             postText += `👇 แตะจิ้มดูราคาทุกหมวดหมู่แบบมือถือและสั่งสินค้าใส่ตะกร้าตรงนี้เลย!\n`;
             postText += `🔗 แคตตาล็อกออนไลน์: ${shareableLink}\n\n`;
-            postText += `💚 สั่งซื้อตรงกับแอดมินทาง LINE: https://line.me/R/ti/p/@337yuvjn\n`;
+            postText += `💚 สั่งซื้อตรงกับแอดมินทาง LINE OA: https://page.line.me/337yuvjn\n`;
             postText += `🚚 คลังมหาชัย ส่งด่วนทั่วไทย หิ้วสดส่งไวถึงหน้าบ้าน`;
 
             document.getElementById('line-post-output-preview').innerText = postText;
@@ -763,7 +763,7 @@
             textarea.select();
             document.execCommand('copy');
             document.body.removeChild(textarea);
-            showNotification("📋 คัดลอกสำเร็จ! นำไปวางส่งใน OpenChat ได้ทันที");
+            showNotification("📋 คัดลอกสำเร็จ! นำไปวางส่งใน LINE ได้ทันที");
         }
 
         /* ==================== CUSTOMER UI SCREEN RENDER ==================== */
@@ -963,6 +963,7 @@
             summary += `━━━━━━━━━━━━━━━━━━━━━━\n`;
             summary += `🚚 โปรดก๊อปข้อความนี้แล้วกดวาง (Paste) ส่งใบสั่งซื้อในช่องแชทได้เลยครับ!`;
 
+            // บังคับการคัดลอกลงใน Clipboard ของเครื่องทันที (ต้องทำแบบ Sync ภายในคลิกอีเวนต์เพื่อความปลอดภัยของ iOS)
             const textarea = document.createElement('textarea');
             textarea.value = summary;
             document.body.appendChild(textarea);
@@ -972,9 +973,8 @@
 
             showNotification("📋 คัดลอกใบสั่งซื้อเรียบร้อย! กำลังนำคุณไปยังแชท LINE OA...");
 
-            setTimeout(() => {
-                window.open("https://line.me/R/ti/p/@337yuvjn", "_blank");
-            }, 1500);
+            // การย้ายเส้นทางทันทีผ่าน tab ปัจจุบัน (location.href) เพื่อป้องกันการโดน iOS Popup Blocker สกัดกั้นหน้าต่างใหม่
+            window.location.href = "https://page.line.me/337yuvjn";
         }
 
         /* ==================== GITHUB SOURCE CODE BUILDER ==================== */
