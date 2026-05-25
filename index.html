@@ -33,16 +33,17 @@
     <!-- TOP NAVIGATION BAR -->
     <nav class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
-            <div class="flex items-center gap-3">
-                <span class="text-3xl">🚚</span>
+            <!-- Secret Trigger Area -->
+            <div class="flex items-center gap-3 cursor-pointer select-none" onclick="handleSecretClick()">
+                <span class="text-3xl animate-pulse">🚚</span>
                 <div>
                     <h1 class="text-base font-extrabold leading-none tracking-wide">FreshExpress คลังมหาชัย</h1>
-                    <span class="text-[10px] text-emerald-100 font-medium">ระบบสร้างโพสต์ LINE และลิงก์แคตตาล็อกเสถียรสูงสุด</span>
+                    <span class="text-[10px] text-emerald-100 font-medium">ระบบแคตตาล็อกสินค้าส่งด่วนเสถียรสูงสุด</span>
                 </div>
             </div>
             
-            <!-- View Switcher Tabs -->
-            <div class="bg-black/25 p-1 rounded-xl flex gap-1 w-full md:w-auto text-center">
+            <!-- View Switcher Tabs (ซ่อนเป็นค่าเริ่มต้นสำหรับลูกค้าเพื่อความปลอดภัยสูงสุด) -->
+            <div id="view-switcher-container" class="hidden bg-black/25 p-1 rounded-xl flex gap-1 w-full md:w-auto text-center">
                 <button id="btn-merchant" onclick="switchView('merchant')" class="flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-bold transition-all bg-white text-emerald-800 shadow-xs">
                     ⚙️ ระบบหลังบ้านร้านค้า
                 </button>
@@ -162,7 +163,7 @@
                         </p>
                     </div>
 
-                    <!-- Domain Link Configuration (ล๊อกโดเมนจริงของคุณให้ปลอดภัยที่สุด) -->
+                    <!-- Domain Link Configuration -->
                     <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-xl space-y-1">
                         <p class="text-[10px] font-bold text-emerald-800">🔗 ที่อยู่เว็บหลักบน GitHub ของคุณ:</p>
                         <input type="text" id="custom-domain" value="https://tipawan2515.github.io/freshexpress-catalog/" class="w-full p-2 border border-slate-200 rounded-lg text-xs bg-white font-semibold text-emerald-800 focus:ring-1 focus:ring-emerald-500">
@@ -334,6 +335,7 @@
 
         const originalStateJson = JSON.stringify(state);
         let cart = {};
+        let secretClickCount = 0;
 
         // Safe UTF-8 Base64 Encoding
         function base64EncodeUnicode(str) {
@@ -351,9 +353,42 @@
             }
         }
 
+        // Secret Click Handler for Shop Owner to reveal backoffice
+        function handleSecretClick() {
+            secretClickCount++;
+            if (secretClickCount >= 5) {
+                const switcher = document.getElementById('view-switcher-container');
+                if (switcher.classList.contains('hidden')) {
+                    switcher.classList.remove('hidden');
+                    switchView('merchant');
+                    showNotification("🔓 ยินดีต้อนรับกลับ! เปิดระบบหลังบ้านเรียบร้อยแล้ว");
+                } else {
+                    switcher.classList.add('hidden');
+                    switchView('customer');
+                    showNotification("🔒 ปิดระบบหลังบ้าน กลับสู่โหมดลูกค้าทั่วไป");
+                }
+                secretClickCount = 0;
+            }
+        }
+
         // On Load initialization
         window.onload = function() {
             const hash = window.location.hash;
+            const search = window.location.search;
+
+            // ตรวจหาว่าลิงก์ถูกเปิดแบบแอดมินหลังบ้านหรือไม่
+            const isMerchantAccess = hash.includes('admin') || search.includes('admin');
+
+            // 1. ตรวจสอบสิทธิ์และซ่อน/แสดง แผงสวิตซ์หลังบ้านทันที
+            const switcherContainer = document.getElementById('view-switcher-container');
+            if (isMerchantAccess) {
+                switcherContainer.classList.remove('hidden');
+                switchView('merchant');
+                showNotification("⚙️ โหมดหลังบ้าน: พร้อมปรับปรุงราคา");
+            } else {
+                switcherContainer.classList.add('hidden');
+                switchView('customer');
+            }
             
             // CHECK 1: ตรวจเช็ครูปแบบราคาด่วน (Super-short Price Hash)
             if (hash && hash.startsWith('#u=')) {
@@ -373,11 +408,9 @@
                             }
                         }
                     });
-                    switchView('customer');
-                    showNotification("🚀 ราคาสินค้าอัปเดตตรงกับหลังบ้านเรียบร้อย!");
+                    showNotification("🚀 ราคาสินค้าอัปเดตตรงตามไลน์แล้ว!");
                 } catch (e) {
                     console.error("Failed to parse super-short price hash", e);
-                    switchView('customer');
                 }
             }
             // CHECK 2: กรณีใช้ Full State Catalog (ลิงก์ยาวที่มีการเพิ่มสินค้าใหม่พิเศษ)
@@ -392,12 +425,11 @@
                             saveStateToLocal();
                         }
                     }
-                    switchView('customer');
                 } catch (e) {
                     console.error("Error parsing Decoded JSON hash:", e);
-                    switchView('customer');
                 }
             } else {
+                // โหลดจาก LocalStorage สำหรับใช้จำหน่วยความจำหลังบ้านร้านค้า
                 const stored = localStorage.getItem('freshexpress_v4_state');
                 if (stored) {
                     try {
@@ -408,7 +440,7 @@
                 }
             }
 
-            // ตั้งค่าที่อยู่ร้านจริงของคุณตลอดกาล ป้องกันปัญหาคัดลอกลิงก์ Sandbox
+            // บังคับล็อกโดเมนจริงเพื่อความปลอดภัย ป้องกันปัญหาก็อปปี้ Sandbox URL ไปส่งในไลน์
             document.getElementById('custom-domain').value = "https://tipawan2515.github.io/freshexpress-catalog/";
 
             renderAll();
@@ -418,7 +450,7 @@
             localStorage.setItem('freshexpress_v4_state', JSON.stringify(state));
         }
 
-        // Toggle views
+        // Toggle admin panel vs customer view
         function switchView(mode) {
             const viewMerchant = document.getElementById('view-merchant');
             const viewCustomer = document.getElementById('view-customer');
@@ -632,7 +664,7 @@
                         </select>
                     </td>
                     <td class="py-2.5 px-1 text-right">
-                        <button onclick="deleteProduct('${p.id}')" class="text-rose-500 hover:underline">ลบ</button>
+                        <button onclick="deleteProduct('${p.id}')" class="text-rose-500 hover:underline font-bold">ลบ</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -678,7 +710,7 @@
         function generateShareableLink() {
             const baseDomain = "https://tipawan2515.github.io/freshexpress-catalog/";
             
-            // ตรวจเช็คว่ามีสินค้าแปลกปลอมเพิ่มเข้ามาจากค่าตั้งต้นหรือไม่
+            // ตรวจเช็คเพื่อย่อรหัสลงลิงก์จิ๋ว ป้องกัน LINE ตัดรหัส
             const defaultObj = JSON.parse(originalStateJson);
             const isMatchingStructure = state.products.length === defaultObj.products.length && 
                                         state.products.every((p, i) => p.id === defaultObj.products[i].id);
