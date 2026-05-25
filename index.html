@@ -16,8 +16,8 @@
         }
         /* Custom scrollbars */
         ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
+            width: 4px;
+            height: 4px;
         }
         ::-webkit-scrollbar-track {
             background: #f1f5f9;
@@ -32,16 +32,16 @@
 
     <!-- TOP NAVIGATION BAR -->
     <nav class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md sticky top-0 z-40">
-        <div class="max-w-6xl mx-auto px-4 py-3.5 flex flex-col md:flex-row justify-between items-center gap-3">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3">
                 <span class="text-3xl">🚚</span>
                 <div>
                     <h1 class="text-base font-extrabold leading-none tracking-wide">FreshExpress คลังมหาชัย</h1>
-                    <span class="text-[10px] text-emerald-100 font-medium">ระบบสร้างโพสต์ LINE และลิงก์แคตตาล็อกอัจฉริยะ</span>
+                    <span class="text-[10px] text-emerald-100 font-medium">ระบบสร้างโพสต์ LINE และลิงก์แคตตาล็อกเสถียรสูงสุด</span>
                 </div>
             </div>
             
-            <!-- View Switcher Tabs (Merchant Dashboard vs Live Customer App) -->
+            <!-- View Switcher Tabs -->
             <div class="bg-black/25 p-1 rounded-xl flex gap-1 w-full md:w-auto text-center">
                 <button id="btn-merchant" onclick="switchView('merchant')" class="flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-bold transition-all bg-white text-emerald-800 shadow-xs">
                     ⚙️ ระบบหลังบ้านร้านค้า
@@ -74,7 +74,7 @@
                         </button>
                     </div>
                     <p class="text-xs text-slate-500 mb-3 leading-relaxed">
-                        วางข้อความราคาที่มีเครื่องหมาย 🔸 หรือ ✅ ที่คุณก๊อปปี้มาจาก LINE ลงในช่องด้านล่างนี้ ระบบจะทำการสกัดรายชื่อสินค้า ราคา และรายละเอียดลงในแคตตาล็อกให้ทันทีใน 1 วินาที
+                        วางข้อความราคาแผงยาวที่มีเครื่องหมาย 🔸 หรือ ✅ ที่คัดลอกมาจาก LINE ลงช่องนี้ ระบบจะสกัดรายชื่อสินค้า ราคา และรายละเอียดให้ทันทีโดยอัตโนมัติ
                     </p>
 
                     <div class="space-y-4">
@@ -134,17 +134,17 @@
                     </div>
                 </div>
 
-                <!-- GitHub Permanent Sync Option (For saving added products) -->
+                <!-- GitHub Permanent Sync Option -->
                 <div class="bg-slate-900 text-white p-5 rounded-2xl shadow-sm space-y-3">
                     <div class="flex items-center gap-3">
                         <span class="text-2xl">⚙️</span>
                         <div>
-                            <h3 class="text-sm font-bold">บันทึกสินค้าใหม่ลงบนเว็บไซต์อย่างถาวร</h3>
-                            <p class="text-[10px] text-slate-400">หากคุณมีการเพิ่มสินค้าใหม่/ประเภทสินค้าใหม่ แนะนำให้กดปุ่มนี้เพื่อนำไฟล์ไปเซฟทับบน GitHub</p>
+                            <h3 class="text-sm font-bold">บันทึกรายการสินค้าใหม่ลงในเว็บอย่างถาวร</h3>
+                            <p class="text-[10px] text-slate-400 font-medium">หากคุณเพิ่งป้อนชื่อสินค้าใหม่ลงไป แนะนำให้กดปุ่มนี้เพื่อนำไฟล์ไปวางทับบน GitHub เพื่ออัปเดตระบบถาวร</p>
                         </div>
                     </div>
                     <button onclick="copyUpdatedHTMLCode()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-2.5 px-4 rounded-xl text-xs shadow transition-all flex items-center justify-center gap-2">
-                        📋 คัดลอกซอร์สโค้ดเพื่อไปวางทับบน GitHub (ง่ายมากๆ ใน 10 วินาที)
+                        📋 คัดลอกโค้ดเพื่อนำไปอัปเดตบน GitHub (ใช้แทนที่ไฟล์เก่าได้เลย)
                     </button>
                 </div>
 
@@ -275,13 +275,13 @@
                 </div>
 
                 <div class="bg-amber-50 border border-amber-100 p-3 rounded-xl text-[10px] text-amber-800 leading-relaxed">
-                    💡 ระบบจะช่วยเขียนออเดอร์ให้โดยอัตโนมัติ เมื่อคุณกดส่ง ออเดอร์จะถูกคัดลอกลงในมือถือ และนำทางคุณไปที่แชท LINE กลุ่มเพื่อกดวาง (Paste) สั่งซื้อทันทีครับ!
+                    💡 ระบบจะช่วยเขียนออเดอร์ให้โดยอัตโนมัติ เมื่อคุณกดส่ง ออเดอร์จะถูกคัดลอกลงในมือถือ และนำทางคุณไปที่แชท LINE เพื่อกดวาง (Paste) สั่งซื้อทันทีครับ!
                 </div>
 
                 <div class="flex gap-2">
                     <button onclick="clearEntireCart()" class="px-4 py-2.5 border border-rose-200 text-rose-600 hover:bg-rose-50 rounded-xl text-xs font-bold transition-all">ล้างตะกร้า</button>
                     <button onclick="submitOrderToAdminLine()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 px-4 rounded-xl text-xs shadow-md transition-all flex items-center justify-center gap-1.5">
-                        💬 กดก๊อปออเดอร์ & ไปแชทส่ง LINE
+                        💬 กดก๊อปออเดอร์ & ไปส่งในแชท LINE
                     </button>
                 </div>
             </div>
@@ -295,7 +295,7 @@
 
     <!-- CODE LOGIC -->
     <script>
-        // Database Model & Default Data State with all your exact 14 Naem items + Sausages
+        // Database Model & Default Data State (14 Naem items + 6 Sausages)
         /*START_DB*/
         let state = {
             categories: [
@@ -332,9 +332,7 @@
         };
         /*END_DB*/
 
-        // Original Backup to compare for Custom Sync Hash
         const originalStateJson = JSON.stringify(state);
-
         let cart = {};
 
         // Safe UTF-8 Base64 Encoding
@@ -357,7 +355,7 @@
         window.onload = function() {
             const hash = window.location.hash;
             
-            // CHECK 1: ตรวจเช็ครูปแบบราคาด่วน (Super-short Price Hash) e.g. #u=p-naem-1_780_1,...
+            // CHECK 1: ตรวจเช็ครูปแบบราคาด่วน (Super-short Price Hash)
             if (hash && hash.startsWith('#u=')) {
                 try {
                     const priceUpdates = hash.substring(3).split(',');
@@ -375,7 +373,7 @@
                             }
                         }
                     });
-                    // ล็อกมุมมองไปที่หน้าลูกค้าโดยตรงเมื่อมีการแชร์ราคามา
+                    // ล็อกมุมมองลูกค้าทันทีเมื่อมีรหัสแชร์ราคามา
                     switchView('customer');
                     showNotification("🚀 ราคาสินค้าอัปเดตตรงกับหลังบ้านเรียบร้อย!");
                 } catch (e) {
@@ -383,7 +381,7 @@
                     switchView('customer');
                 }
             }
-            // CHECK 2: กรณีใช้ Full State Catalog (ลิงก์ยาวที่มีสินค้าเพิ่มใหม่พิเศษ)
+            // CHECK 2: กรณีใช้ Full State Catalog (ลิงก์ยาวที่มีการเพิ่มสินค้าใหม่พิเศษ)
             else if (hash && hash.startsWith('#catalog=')) {
                 try {
                     const encodedData = hash.substring(9);
@@ -401,7 +399,7 @@
                     switchView('customer');
                 }
             } else {
-                // โหลดจาก LocalStorage สำหรับใช้จำหน่วยความจำหลังบ้านร้านค้า
+                // โหลดจาก LocalStorage สำหรับใช้จำหน่วยความจำหลังบ้าน
                 const stored = localStorage.getItem('freshexpress_v4_state');
                 if (stored) {
                     try {
@@ -412,7 +410,7 @@
                 }
             }
 
-            // คำนวณที่อยู่ URL โฮสต์จริงของคุณ
+            // ตั้งค่าที่อยู่ GitHub Pages อัตโนมัติ
             let currentUrl = window.location.origin + window.location.pathname;
             if (currentUrl.includes('null') || currentUrl.includes('file://') || currentUrl.includes('sandbox') || currentUrl.includes('localhost') || currentUrl.includes('127.0.0.1')) {
                 currentUrl = "https://tipawan2515.github.io/freshexpress-catalog/";
@@ -426,7 +424,7 @@
             localStorage.setItem('freshexpress_v4_state', JSON.stringify(state));
         }
 
-        // Toggle admin panel vs customer view
+        // Toggle views
         function switchView(mode) {
             const viewMerchant = document.getElementById('view-merchant');
             const viewCustomer = document.getElementById('view-customer');
@@ -479,7 +477,6 @@
             showNotification("โหลดข้อความตัวอย่างแล้ว!");
         }
 
-        // Advanced Parser to scan and extract name, price, description, status
         function parseRawTextAndStore() {
             const textInput = document.getElementById('raw-text-input').value;
             const targetCatId = document.getElementById('parser-target-cat').value;
@@ -542,7 +539,6 @@
                 return;
             }
 
-            // บันทึกเข้า State (เขียนทับหมวดหมู่เก่า)
             state.products = state.products.filter(p => p.catId !== targetCatId);
             
             parsedItems.forEach(item => {
@@ -642,7 +638,7 @@
                         </select>
                     </td>
                     <td class="py-2.5 px-1 text-right">
-                        <button onclick="deleteProduct('${p.id}')" class="text-rose-500 hover:underline">ลบ</button>
+                        <button onclick="deleteProduct('${p.id}')" class="text-rose-500 hover:underline font-bold">ลบ</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -685,24 +681,21 @@
 
         /* ==================== SHAREABLE LINK GENERATOR ==================== */
         
-        // ค้นหาว่าผู้ใช้มีการแก้ไขเฉพาะ 'ราคา/สถานะ' หรือมีการ 'เพิ่ม/ลบ' สินค้าจริง
         function generateShareableLink() {
             const baseDomain = document.getElementById('custom-domain').value || window.location.href.split('#')[0];
             
-            // เปรียบเทียบรายการ ID สินค้าปัจจุบันว่าตรงกับค่าตั้งต้นดั้งเดิมหรือไม่
+            // เปรียบเทียบโครงสร้างเพื่อสร้างลิงก์สั้นพิเศษป้องกันไลน์ตัดรหัส
             const defaultObj = JSON.parse(originalStateJson);
             const isMatchingStructure = state.products.length === defaultObj.products.length && 
                                         state.products.every((p, i) => p.id === defaultObj.products[i].id);
 
             if (isMatchingStructure) {
-                // หากโครงสร้างเท่าเดิม: สร้างลิงก์จิ๋ว (Super-short Price Hash) เพื่อแชร์ผ่านไลน์ปลอดภัย 100%
                 const compressedUpdates = state.products.map(p => {
                     const statusBit = p.status === 'พร้อมส่ง' ? '1' : '0';
                     return `${p.id}_${p.price}_${statusBit}`;
                 }).join(',');
                 return `${baseDomain}#u=${compressedUpdates}`;
             } else {
-                // หากมีการสร้างสินค้าใหม่ขึ้นมา: บีบอัดข้อมูลแบบ Full State
                 const dataStr = JSON.stringify(state);
                 const base64Data = base64EncodeUnicode(dataStr);
                 return `${baseDomain}#catalog=${base64Data}`;
@@ -730,9 +723,8 @@
             }
 
             postText += `━━━━━━━━━━━━━━━━━━━━━━\n`;
-            postText += `👇 แตะเลือกดูแคตตาล็อกกดสั่งออเดอร์ตะกร้าส่งแอดมินที่ลิงก์นี้ครับ!\n`;
+            postText += `👇 แตะจิ้มดูราคาทุกหมวดหมู่แบบมือถือและสั่งสินค้าใส่ตะกร้าตรงนี้เลย!\n`;
             postText += `🔗 แคตตาล็อกออนไลน์: ${shareableLink}\n\n`;
-            postText += `💚 สั่งซื้อตรงกับแอดมิน: https://line.me/ti/g2/JNwLyAL_j_Ds9YtTO49G14C0wZZltsm4zWTwDg\n`;
             postText += `🚚 คลังมหาชัย ส่งด่วนทั่วไทย หิ้วสดส่งไวถึงหน้าบ้าน`;
 
             document.getElementById('line-post-output-preview').innerText = postText;
@@ -963,7 +955,6 @@
         /* ==================== GITHUB SOURCE CODE BUILDER ==================== */
         
         function copyUpdatedHTMLCode() {
-            // ดึงโค้ดหน้า HTML ปัจจุบันทั้งหมด
             let pageSource = document.documentElement.outerHTML;
             
             const startMarker = '/*START_DB*/';
@@ -973,14 +964,12 @@
             const endIndex = pageSource.indexOf(endMarker);
             
             if (startIndex !== -1 && endIndex !== -1) {
-                // ค้นหาและแทนที่ Database ในสคริปต์ให้กลายเป็น State ปัจจุบันแบบถาวร
                 const updatedStateStr = `\n        let state = ${JSON.stringify(state, null, 4)};\n        `;
                 const beforePart = pageSource.substring(0, startIndex + startMarker.length);
                 const afterPart = pageSource.substring(endIndex);
                 
                 const finalCode = "<!DOCTYPE html>\n" + beforePart + updatedStateStr + afterPart;
                 
-                // คัดลอกลง Clipboard
                 const textarea = document.createElement('textarea');
                 textarea.value = finalCode;
                 document.body.appendChild(textarea);
@@ -990,7 +979,7 @@
                 
                 showNotification("📋 คัดลอกซอร์สโค้ดเรียบร้อย! สามารถนำไปวางทับไฟล์บน GitHub ได้เลยครับ");
             } else {
-                showNotification("❌ ไม่พบตำแหน่งมาร์กเกอร์ฐานข้อมูลในหน้าเว็บ");
+                showNotification("❌ ไม่พบตำแหน่งฐานข้อมูลในหน้าเว็บ");
             }
         }
 
